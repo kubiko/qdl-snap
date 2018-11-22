@@ -1,0 +1,39 @@
+name: qdl
+summary: qdl Qualcomm Download tool
+description: |
+  This tool communicates with USB devices of id 05c6:9008 to upload a flash
+  loader and use this to flash images.
+
+grade: stable
+confinement: strict
+adopt-info: qdl
+architectures:
+    - build-on: armhf
+    - build-on: arm64
+    - build-on: i386
+    - build-on: amd64
+
+environment:
+    PATH:            "$SNAP/alias-bin:$SNAP_COMMON/bin:$SNAP/usr/sbin:$SNAP/usr/bin:$SNAP/sbin:$SNAP/bin:$PATH:$SNAP/usr/lib/git-core"
+    LD_LIBRARY_PATH: "$SNAP_LIBRARY_PATH:$LD_LIBRARY_PATH:$SNAP/lib:$SNAP/usr/lib:$SNAP/lib/${SNAPCRAFT_ARCH_TRIPLET}:$SNAP/usr/lib/${SNAPCRAFT_ARCH_TRIPLET}"
+    
+apps:
+    qdl:
+        command: bin/qdl
+        adapter: none
+        plugs:
+            - raw-usb
+            - home
+parts:
+    qdl:
+        plugin: nil
+        source: https://git.linaro.org/landing-teams/working/qualcomm/qdl.git
+        build-packages:
+            - libxml2-dev
+        stage-packages:
+            - libxml2
+        override-build: |
+            make
+            mkdir -p ${SNAPCRAFT_PART_INSTALL}/bin
+            cp qdl ${SNAPCRAFT_PART_INSTALL}/bin
+            snapcraftctl set-version $(git describe --tag)
