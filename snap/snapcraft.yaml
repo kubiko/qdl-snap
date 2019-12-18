@@ -28,8 +28,6 @@ parts:
     qdl:
         plugin: nil
         source: https://git.linaro.org/landing-teams/working/qualcomm/qdl.git
-        build-packages:
-            - libxml2-dev
         stage-packages:
             - libxml2
         override-build: |
@@ -37,3 +35,6 @@ parts:
             mkdir -p ${SNAPCRAFT_PART_INSTALL}/bin
             cp qdl ${SNAPCRAFT_PART_INSTALL}/bin
             snapcraftctl set-version $(git describe --tag)
+build-packages:
+    - libudev-dev
+    - libxml2-dev
