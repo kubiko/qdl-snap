@@ -16,7 +16,7 @@ architectures:
 environment:
     PATH:            "$SNAP/alias-bin:$SNAP_COMMON/bin:$SNAP/usr/sbin:$SNAP/usr/bin:$SNAP/sbin:$SNAP/bin:$PATH:$SNAP/usr/lib/git-core"
     LD_LIBRARY_PATH: "$SNAP_LIBRARY_PATH:$LD_LIBRARY_PATH:$SNAP/lib:$SNAP/usr/lib:$SNAP/lib/${SNAPCRAFT_ARCH_TRIPLET}:$SNAP/usr/lib/${SNAPCRAFT_ARCH_TRIPLET}"
-    
+
 apps:
     qdl:
         command: bin/qdl
@@ -24,6 +24,8 @@ apps:
         plugs:
             - raw-usb
             - home
+            - fwupd
+
 parts:
     qdl:
         plugin: nil
