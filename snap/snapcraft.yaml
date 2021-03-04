@@ -36,7 +36,7 @@ parts:
             make
             mkdir -p ${SNAPCRAFT_PART_INSTALL}/bin
             cp qdl ${SNAPCRAFT_PART_INSTALL}/bin
-            snapcraftctl set-version $(git describe --tag)
+            snapcraftctl set-version $(git describe --tag | cut -c 2-)
 build-packages:
     - libudev-dev
     - libxml2-dev
