@@ -24,7 +24,7 @@ apps:
         plugs:
             - raw-usb
             - home
-            - fwupd
+            - network-observe
 
 parts:
     qdl:
