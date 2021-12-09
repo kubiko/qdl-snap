@@ -31,7 +31,9 @@ apps:
 parts:
     qdl:
         plugin: nil
-        source: https://git.linaro.org/landing-teams/working/qualcomm/qdl.git
+        source: https://github.com/kubiko/qdl.git
+        source-type: git
+        source-branch: libusb
         stage-packages:
             - libxml2
         override-build: |
