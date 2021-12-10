@@ -44,5 +44,8 @@ parts:
             cp qdl ${SNAPCRAFT_PART_INSTALL}/bin
             snapcraftctl set-version $(git describe --tag | cut -c 2-)
 build-packages:
+    - cmake
     - libudev-dev
+    - libusb-1.0-0-dev
     - libxml2-dev
+    - zlib1g-dev
