@@ -36,6 +36,8 @@ parts:
         source-branch: libusb
         stage-packages:
             - libxml2
+            - libusb-1.0-0
+            - zlib1g
         override-build: |
             make
             mkdir -p ${SNAPCRAFT_PART_INSTALL}/bin
