@@ -4,52 +4,47 @@ description: |
   This tool communicates with USB devices of id 05c6:9008 to upload a flash
   loader and use this to flash images.
 
-base: core20
+base: core22
 
 grade: stable
 confinement: strict
 adopt-info: qdl
 architectures:
-    - build-on: armhf
-    - build-on: arm64
-    - build-on: i386
-    - build-on: amd64
+  - build-on: armhf
+  - build-on: arm64
+  - build-on: amd64
 
 environment:
-    PATH:            "$SNAP/alias-bin:$SNAP_COMMON/bin:$SNAP/usr/sbin:$SNAP/usr/bin:$SNAP/sbin:$SNAP/bin:$PATH:$SNAP/usr/lib/git-core"
-    LD_LIBRARY_PATH: "$SNAP_LIBRARY_PATH:$LD_LIBRARY_PATH:$SNAP/lib:$SNAP/usr/lib:$SNAP/lib/${SNAPCRAFT_ARCH_TRIPLET}:$SNAP/usr/lib/${SNAPCRAFT_ARCH_TRIPLET}"
+  PATH:            "$SNAP/alias-bin:$SNAP_COMMON/bin:$SNAP/usr/sbin:$SNAP/usr/bin:$SNAP/sbin:$SNAP/bin:$PATH:$SNAP/usr/lib/git-core"
+  LD_LIBRARY_PATH: "$SNAP_LIBRARY_PATH:$LD_LIBRARY_PATH:$SNAP/lib:$SNAP/usr/lib:$SNAP/lib/${CRAFT_ARCH_TRIPLET}:$SNAP/usr/lib/${CRAFT_ARCH_TRIPLET}"
 
 plugs:
   home:
     read: all
 
 apps:
-    qdl:
-        command: bin/qdl
-        adapter: none
-        plugs:
-            - raw-usb
-            - home
-            - network-observe
+  qdl:
+    command: usr/bin/qdl
+    plugs:
+      - raw-usb
+      - home
+      - network-observe
 
 parts:
-    qdl:
-        plugin: nil
-        source: https://github.com/kubiko/qdl.git
-        source-type: git
-        source-branch: libusb
-        stage-packages:
-            - libxml2
-            - libusb-1.0-0
-            - zlib1g
-        override-build: |
-            make
-            mkdir -p ${SNAPCRAFT_PART_INSTALL}/bin
-            cp qdl ${SNAPCRAFT_PART_INSTALL}/bin
-            snapcraftctl set-version $(git describe --tag | cut -c 2-)
+  qdl:
+    plugin: nil
+    source: https://github.com/kubiko/qdl.gi
+    source-type: git
+    source-branch: master
+    stage-packages:
+      - libxml2
+      - libudev1
+    override-build: |
+      make
+      install -D -m 755 qdl ${SNAPCRAFT_PART_INSTALL}/usr/bin/qdl
+      craftctl set version="$(git describe --tag | cut -c 2-)"
+
 build-packages:
-    - cmake
-    - libudev-dev
-    - libusb-1.0-0-dev
-    - libxml2-dev
-    - zlib1g-dev
+  - cmake
+  - libudev-dev
+  - libxml2-dev
