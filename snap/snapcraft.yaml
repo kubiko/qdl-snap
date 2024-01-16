@@ -33,7 +33,7 @@ apps:
 parts:
   qdl:
     plugin: nil
-    source: https://github.com/kubiko/qdl.gi
+    source: https://github.com/linux-msm/qdl.git
     source-type: git
     source-branch: master
     stage-packages:
