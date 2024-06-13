@@ -4,17 +4,17 @@ description: |
   This tool communicates with USB devices of id 05c6:9008 to upload a flash
   loader and use this to flash images.
 
-base: core22
+base: core24
 
 grade: stable
 confinement: strict
 adopt-info: qdl
 license: BSD-3-Clause
 
-architectures:
-  - build-on: armhf
-  - build-on: arm64
-  - build-on: amd64
+platforms:
+  arm64:
+  amd64:
+  riscv64:
 
 environment:
   LD_LIBRARY_PATH: "$SNAP/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}"
