@@ -15,8 +15,7 @@ architectures:
   - build-on: amd64
 
 environment:
-  PATH:            "$SNAP/alias-bin:$SNAP_COMMON/bin:$SNAP/usr/sbin:$SNAP/usr/bin:$SNAP/sbin:$SNAP/bin:$PATH:$SNAP/usr/lib/git-core"
-  LD_LIBRARY_PATH: "$SNAP_LIBRARY_PATH:$LD_LIBRARY_PATH:$SNAP/lib:$SNAP/usr/lib:$SNAP/lib/${CRAFT_ARCH_TRIPLET}:$SNAP/usr/lib/${CRAFT_ARCH_TRIPLET}"
+  LD_LIBRARY_PATH: "$SNAP/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}"
 
 plugs:
   home:
