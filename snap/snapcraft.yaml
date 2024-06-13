@@ -9,6 +9,8 @@ base: core22
 grade: stable
 confinement: strict
 adopt-info: qdl
+license: BSD-3-Clause
+
 architectures:
   - build-on: armhf
   - build-on: arm64
