@@ -30,6 +30,12 @@ apps:
       - raw-usb
       - home
       - network-observe
+  ramdump:
+    command: usr/bin/qdl-ramdump
+    plugs:
+      - raw-usb
+      - home
+      - network-observe
 
 parts:
   qdl:
@@ -43,6 +49,7 @@ parts:
     override-build: |
       make
       install -D -m 755 qdl ${SNAPCRAFT_PART_INSTALL}/usr/bin/qdl
+      install -D -m 755 qdl-ramdump ${SNAPCRAFT_PART_INSTALL}/usr/bin/qdl-ramdump
       craftctl set version="$(git describe --tag | cut -c 2-)"
 
 build-packages:
