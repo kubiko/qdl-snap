@@ -30,7 +30,7 @@ apps:
       - raw-usb
       - home
       - network-observe
-  qdl-ramdump:
+  ramdump:
     command: usr/bin/qdl-ramdump
     plugs:
       - raw-usb
