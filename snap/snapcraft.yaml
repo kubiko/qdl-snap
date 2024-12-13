@@ -30,6 +30,7 @@ apps:
       - raw-usb
       - home
       - network-observe
+      - adb-support
   ramdump:
     command: usr/bin/qdl-ramdump
     plugs:
