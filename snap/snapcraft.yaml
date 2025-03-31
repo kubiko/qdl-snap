@@ -47,11 +47,24 @@ parts:
     stage-packages:
       - libxml2
       - libusb-1.0-0
+    override-pull: |
+      craftctl default
+      snap_name="qdl"
+      # decide if to build master or release(tag)
+      last_released_tag="$(snap info ${snap_name} | awk '$1 == "latest/beta:" { print $2 }')"
+      last_commited_tag=$(git describe --abbrev=0 --tags)
+      # If the latest tag from the upstream project has not been released to
+      # beta, build that tag instead of master.
+      if [ "${last_commited_tag}" != "${last_released_tag}" ]; then
+        git checkout ${last_commited_tag}
+        craftctl set version=${last_commited_tag}
+      else
+        craftctl set version="$(git describe --tags | cut -c 2-)"
+      fi
     override-build: |
       make
       install -D -m 755 qdl ${SNAPCRAFT_PART_INSTALL}/usr/bin/qdl
       install -D -m 755 qdl-ramdump ${SNAPCRAFT_PART_INSTALL}/usr/bin/qdl-ramdump
-      craftctl set version="$(git describe --tag | cut -c 2-)"
 
 build-packages:
   - cmake
