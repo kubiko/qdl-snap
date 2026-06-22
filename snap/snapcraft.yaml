@@ -24,6 +24,14 @@ plugs:
     read: all
 
 apps:
+  ks:
+    command: usr/bin/qdl-ks
+    plugs:
+      - raw-usb
+      - home
+      - network-observe
+      - adb-support
+
   qdl:
     command: usr/bin/qdl
     plugs:
@@ -31,6 +39,7 @@ apps:
       - home
       - network-observe
       - adb-support
+
   ramdump:
     command: usr/bin/qdl-ramdump
     plugs:
@@ -47,6 +56,7 @@ parts:
     stage-packages:
       - libxml2
       - libusb-1.0-0
+      - libzip4t64
     override-pull: |
       craftctl default
       snap_name="qdl"
@@ -62,12 +72,17 @@ parts:
         craftctl set version="$(git describe --tags | cut -c 2-)"
       fi
     override-build: |
-      make
-      install -D -m 755 qdl ${SNAPCRAFT_PART_INSTALL}/usr/bin/qdl
-      install -D -m 755 qdl-ramdump ${SNAPCRAFT_PART_INSTALL}/usr/bin/qdl-ramdump
+      meson setup build
+      meson compile -C build
+      install -D -m 755 build/qdl ${SNAPCRAFT_PART_INSTALL}/usr/bin/qdl
+      install -D -m 755 build/qdl-ramdump ${SNAPCRAFT_PART_INSTALL}/usr/bin/qdl-ramdump
+      install -D -m 755 build/qdl-ks ${SNAPCRAFT_PART_INSTALL}/usr/bin/qdl-ks
 
 build-packages:
-  - cmake
-  - pkgconf
+  - help2man
   - libusb-1.0-0-dev
   - libxml2-dev
+  - libzip-dev
+  - meson
+  - ninja-build
+  - pkgconf
