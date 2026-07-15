@@ -24,14 +24,6 @@ plugs:
     read: all
 
 apps:
-  ks:
-    command: usr/bin/qdl-ks
-    plugs:
-      - raw-usb
-      - home
-      - network-observe
-      - adb-support
-
   qdl:
     command: usr/bin/qdl
     plugs:
@@ -39,13 +31,6 @@ apps:
       - home
       - network-observe
       - adb-support
-
-  ramdump:
-    command: usr/bin/qdl-ramdump
-    plugs:
-      - raw-usb
-      - home
-      - network-observe
 
 parts:
   qdl:
@@ -75,8 +60,6 @@ parts:
       meson setup build
       meson compile -C build
       install -D -m 755 build/qdl ${SNAPCRAFT_PART_INSTALL}/usr/bin/qdl
-      install -D -m 755 build/qdl-ramdump ${SNAPCRAFT_PART_INSTALL}/usr/bin/qdl-ramdump
-      install -D -m 755 build/qdl-ks ${SNAPCRAFT_PART_INSTALL}/usr/bin/qdl-ks
 
 build-packages:
   - help2man
